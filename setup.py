@@ -11,7 +11,7 @@ setup(name='ballpark',
     license='ISC',
     packages=find_packages(),
     keywords='human numbers format notation scientific engineering',
-    install_requires=[],
+    install_requires=['future'],
     test_suite='ballpark.tests',
     classifiers=[
         'Development Status :: 4 - Beta',
