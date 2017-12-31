@@ -13,6 +13,7 @@ setup(name='ballpark',
     keywords='human numbers format notation scientific engineering',
     install_requires=[],
     test_suite='ballpark.tests',
+    tests_require=['pandas'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
