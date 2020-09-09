@@ -78,7 +78,6 @@ round = quantize
 def repel(value):
     return math.copysign(max(abs(value), 1e-24), value)
 
-
 def unwrap(fn):
     @functools.wraps(fn)
     def unwrapped_function(values, *vargs, **kwargs):
@@ -87,7 +86,15 @@ def unwrap(fn):
         if scalar:
             values = [values]
 
-        results = fn(values, *vargs, **kwargs)
+        # Handle negative inputs by converting to positive, then correcting the output
+
+        is_negative = list(map(lambda x : x < 0, values))
+        multipliers = [-1 if negative else 1 for negative in is_negative]
+        positive_inputs = [value * multiplier for value, multiplier in zip(values, multipliers)]
+
+        positive_results = fn(positive_inputs, *vargs, **kwargs)
+
+        results = ["-" + positive_result if negative else positive_result for positive_result, negative in zip(positive_results, is_negative)]
 
         if scalar:
             results = results[0]
